@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,15 @@ public class PetListFragment extends Fragment implements PetListView {
     }
 
     @Override
-    public void onDestroyView() {
+    public void onResume() {
+        super.onResume();
+        presenter.attachView(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         presenter.onDestroy();
-        super.onDestroyView();
     }
 
     private void initViews() {
@@ -84,6 +91,7 @@ public class PetListFragment extends Fragment implements PetListView {
 
     @Override
     public void render(PetListViewState state) {
+        Log.d("PetList", "render: pets" + state.getPets().size());
         renderLoading(state.isLoading());
         renderError(state.isError());
         setPets(state.getPets());

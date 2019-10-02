@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ServiceApi {
-    @GET
+    @GET("api.php")
     Single<BaseResponse<List<PetResponse>>> getPets(@Query("query") String type);
 }

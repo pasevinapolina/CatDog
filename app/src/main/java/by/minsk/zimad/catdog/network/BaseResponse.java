@@ -1,9 +1,13 @@
 package by.minsk.zimad.catdog.network;
 
+import android.support.annotation.NonNull;
+
 public class BaseResponse<T> {
 
-    private final String message;
-    private final T data;
+    private String message;
+    private T data;
+
+    public BaseResponse() { }
 
     public BaseResponse(String message, T data) {
         this.message = message;
@@ -14,11 +18,23 @@ public class BaseResponse<T> {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public T getData() {
         return data;
     }
 
-    public boolean isSuccessful() {
-        return message == null;
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "message='" + message + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

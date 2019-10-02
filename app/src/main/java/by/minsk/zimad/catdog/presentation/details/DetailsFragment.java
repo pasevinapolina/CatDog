@@ -36,7 +36,6 @@ public class DetailsFragment extends Fragment implements DetailsView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.attachView(this);
         initViews(view);
     }
 
@@ -44,6 +43,18 @@ public class DetailsFragment extends Fragment implements DetailsView {
         imageViewPet = rootView.findViewById(R.id.imageViewPet);
         textViewId = rootView.findViewById(R.id.textViewId);
         textViewTitle = rootView.findViewById(R.id.textViewTitle);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.attachView(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
     @Override

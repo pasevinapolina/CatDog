@@ -6,7 +6,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class NetworkService {
     private static NetworkService mInstance;
-    private static final String BASE_URL = "http://kot3.com/xim/api.php";
+    private static final String BASE_URL = "https://kot3.com/xim/";
     private Retrofit mRetrofit;
 
     private NetworkService() {

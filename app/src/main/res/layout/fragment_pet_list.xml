@@ -28,6 +28,7 @@
         tools:listitem="@layout/item_pet" />
 
     <android.support.v4.view.ViewPager
+        android:visibility="gone"
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"

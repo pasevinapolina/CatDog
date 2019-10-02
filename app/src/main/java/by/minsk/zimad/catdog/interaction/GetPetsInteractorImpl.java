@@ -23,22 +23,17 @@ public class GetPetsInteractorImpl implements GetPetsInteractor {
 
         return api.getPets(query)
                 .map(baseResponse -> {
-                    Log.d("PetList", "getPets " + type + ", response: " + baseResponse.getData());
-                    if (baseResponse.isSuccessful()) {
-                        final List<Pet> pets = Collections.emptyList();
-                        List<PetResponse> responseData = baseResponse.getData();
-                        for (PetResponse pet : responseData) {
-                            pets.add(new Pet(type, pet.getImageUrl(), pet.getTitle()));
-                        }
-                        return new InteractionResult<List<Pet>>(true, pets, null);
-                    } else {
-                        return new InteractionResult<List<Pet>>(
-                                false,
-                                null,
-                                new Throwable(baseResponse.getMessage())
-                        );
+                    Log.d("PetList", "getPets " + type + ", response: " + baseResponse);
+                    List<Pet> pets = Collections.emptyList();
+                    List<PetResponse> responseData = baseResponse.getData();
+                    for (PetResponse petResponse : responseData) {
+                        Log.d("PetList", "add pet " + petResponse);
+                        Pet pet = new Pet(type, petResponse.getImageUrl(), petResponse.getTitle());
+                        pets.add(pet);
                     }
-                });
+                    return new InteractionResult<List<Pet>>(true, pets, null);
+                })
+                .onErrorReturn(throwable -> new InteractionResult<List<Pet>>(false, null, throwable));
     }
 
     private String getQuery(Pet.Type type) {
